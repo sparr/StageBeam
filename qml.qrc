@@ -2,6 +2,5 @@
     <qresource prefix="/">
         <file>display.qml</file>
         <file>qtquickcontrols2.conf</file>
-        <file>RoundMouseArea.qml</file>
     </qresource>
 </RCC>

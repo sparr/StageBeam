@@ -1,8 +1,11 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include "radiusmousearea.h"
 
 int main(int argc, char *argv[])
 {
+    qmlRegisterType<RadiusMouseArea>("StageBeam", 0, 1, "RadiusMouseArea");
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);

@@ -1,5 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import StageBeam 0.1
+
 
 ApplicationWindow {
     visible: true
@@ -23,7 +25,8 @@ ApplicationWindow {
                 "x": x + mouseX - spotlightRadius,
                 "y": y + mouseY - spotlightRadius,
                 "width": spotlightRadius * 2,
-                "height": spotlightRadius * 2
+                "height": spotlightRadius * 2,
+                "radius": spotlightRadius
             })
         }
     }
@@ -33,18 +36,14 @@ ApplicationWindow {
         Rectangle {
             id: spotlightCircle
             visible: true
-            x: parent.x
-            y: parent.y
-            width: parent.width
-            height: parent.height
             radius: Math.max(parent.width, parent.height) / 2
             color: Qt.rgba(Math.random()*0.5+0.5,Math.random()*0.5+0.5,Math.random()*0.5+0.5,0.5);
-            RoundMouseArea {
-                id: roundMouseArea
+            RadiusMouseArea {
+                radius: parent.radius
                 anchors.fill: parent
                 drag.target: parent
                 drag.threshold: 1
-                onDoubleclicked: parent.destroy()
+                onDoubleClicked: parent.destroy()
                 onClicked: currentSpotlight = parent
                 onWheel: { parent.z += wheel.pixelDelta.y; currentSpotlight = parent }
             }
