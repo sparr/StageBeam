@@ -45,7 +45,6 @@ ApplicationWindow {
         Rectangle {
             id: spotlightCircle
             visible: true
-            radius: Math.max(parent.width, parent.height) / 2
             color: Qt.rgba(Math.random()*0.5+0.5,Math.random()*0.5+0.5,Math.random()*0.5+0.5,0.5);
             MouseArea {
                 containmentMask: mask
