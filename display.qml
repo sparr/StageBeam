@@ -14,21 +14,30 @@ ApplicationWindow {
     property real spotlightRadius: edgewidth * 1.5
     property Item currentSpotlight
 
-    MouseArea {
-        visible: true
-        x: edgewidth
-        y: edgewidth
-        width: parent.width - edgewidth * 2
-        height: parent.height - edgewidth * 2
-        onClicked: {
-            currentSpotlight = spotlightComponent.createObject(parent, {
-                "x": x + mouseX - spotlightRadius,
-                "y": y + mouseY - spotlightRadius,
-                "width": spotlightRadius * 2,
-                "height": spotlightRadius * 2,
-                "radius": spotlightRadius
-            })
+    Item {
+        id: containerOuter
+        anchors.fill: parent
+        MouseArea {
+            visible: true
+            x: edgewidth
+            y: edgewidth
+            width: parent.width - edgewidth * 2
+            height: parent.height - edgewidth * 2
+            onClicked: {
+                currentSpotlight = spotlightComponent.createObject(containerInner, {
+                    "x": x + mouseX - spotlightRadius,
+                    "y": y + mouseY - spotlightRadius,
+                    "width": spotlightRadius * 2,
+                    "height": spotlightRadius * 2,
+                    "radius": spotlightRadius
+                })
+            }
         }
+        Item {
+            id: containerInner
+            anchors.fill: parent
+        }
+
     }
 
     Component {
@@ -38,14 +47,19 @@ ApplicationWindow {
             visible: true
             radius: Math.max(parent.width, parent.height) / 2
             color: Qt.rgba(Math.random()*0.5+0.5,Math.random()*0.5+0.5,Math.random()*0.5+0.5,0.5);
-            RadiusMouseArea {
-                radius: parent.radius
+            MouseArea {
+                containmentMask: mask
                 anchors.fill: parent
                 drag.target: parent
                 drag.threshold: 1
                 onDoubleClicked: parent.destroy()
                 onClicked: currentSpotlight = parent
                 onWheel: { parent.z += wheel.pixelDelta.y; currentSpotlight = parent }
+            }
+            ItemRadiusMask {
+                id: mask
+                anchors.fill: parent
+                radius: parent.radius
             }
         }
     }

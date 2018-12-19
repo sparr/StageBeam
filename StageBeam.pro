@@ -1,5 +1,4 @@
-# QT += quick
-QT += qml quick quick-private qml-private gui-private
+QT += quick
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -15,7 +14,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    radiusmousearea.cpp
+    qquickitemradiusmask.cpp
 
 RESOURCES += qml.qrc
 
@@ -31,4 +30,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    radiusmousearea.h
+    qquickitemradiusmask.h

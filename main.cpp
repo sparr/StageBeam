@@ -1,10 +1,10 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "radiusmousearea.h"
+#include "qquickitemradiusmask.h"
 
 int main(int argc, char *argv[])
 {
-    qmlRegisterType<RadiusMouseArea>("StageBeam", 0, 1, "RadiusMouseArea");
+    qmlRegisterType<QQuickItemRadiusMask>("StageBeam", 0, 1, "ItemRadiusMask");
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
