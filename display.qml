@@ -64,38 +64,38 @@ ApplicationWindow {
     }
 
     onCurrentSpotlightChanged: {
-        redSlider.value = currentSpotlight.color.r
-        greenSlider.value = currentSpotlight.color.g
-        blueSlider.value = currentSpotlight.color.b
-        alphaSlider.value = currentSpotlight.color.a
+        redSlider.dynamicValue = currentSpotlight.color.r
+        greenSlider.dynamicValue = currentSpotlight.color.g
+        blueSlider.dynamicValue = currentSpotlight.color.b
+        alphaSlider.dynamicValue = currentSpotlight.color.a
     }
 
 
-    Slider {
+    DynamicSlider {
         id: greenSlider
         visible: true
         x: 0
         y: 0
         width: parent.width
         height: edgewidth
-        onValueChanged: { currentSpotlight.color.g = value }
         background: Rectangle { visible:false }
         handle: Rectangle { visible:false }
+        onDynamicValueChanged: { currentSpotlight.color.g = dynamicValue }
     }
 
-    Slider {
+    DynamicSlider {
         id: alphaSlider
         visible: true
         x: 0
         y: parent.height - edgewidth
         width: parent.width
         height: edgewidth
-        onValueChanged: { currentSpotlight.color.a = value }
         background: Rectangle { visible:false }
         handle: Rectangle { visible:false }
+        onDynamicValueChanged: { currentSpotlight.color.a = dynamicValue }
     }
 
-    Slider {
+    DynamicSlider {
         id: redSlider
         visible: true
         x: 0
@@ -103,12 +103,12 @@ ApplicationWindow {
         width: edgewidth
         height: parent.height
         orientation: Qt.Vertical
-        onValueChanged: { currentSpotlight.color.r = value }
         background: Rectangle { visible:false }
         handle: Rectangle { visible:false }
+        onDynamicValueChanged: { currentSpotlight.color.r = dynamicValue }
     }
 
-    Slider {
+    DynamicSlider {
         id: blueSlider
         visible: true
         x: parent.width - edgewidth
@@ -116,9 +116,9 @@ ApplicationWindow {
         width: edgewidth
         height: parent.height
         orientation: Qt.Vertical
-        onValueChanged: { currentSpotlight.color.b = value }
         background: Rectangle { visible:false }
         handle: Rectangle { visible:false }
+        onDynamicValueChanged: { currentSpotlight.color.b = dynamicValue }
     }
 
 }

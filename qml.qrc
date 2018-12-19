@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>display.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>DynamicSlider.qml</file>
     </qresource>
 </RCC>
