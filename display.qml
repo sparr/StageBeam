@@ -19,10 +19,7 @@ ApplicationWindow {
         anchors.fill: parent
         MouseArea {
             visible: true
-            x: edgewidth
-            y: edgewidth
-            width: parent.width - edgewidth * 2
-            height: parent.height - edgewidth * 2
+            anchors.fill: parent
             onClicked: {
                 currentSpotlight = spotlightComponent.createObject(containerInner, {
                     "x": x + mouseX - spotlightRadius,
@@ -49,16 +46,75 @@ ApplicationWindow {
             MouseArea {
                 containmentMask: mask
                 anchors.fill: parent
-                drag.target: parent
+//                anchors.margins: -parent.radius/8 // catch input slightly outside the circle
+                anchors.margins: 0
                 drag.threshold: 1
+                // used during drag resize
+                property point resizeCenter: Qt.point(parent.x + parent.width/2, parent.y + parent.height/2)
+                property real resizeRadiusRatio
                 onDoubleClicked: parent.destroy()
                 onClicked: currentSpotlight = parent
                 onWheel: { parent.z += wheel.pixelDelta.y; currentSpotlight = parent }
+//                // Visualize outline of area
+//                Rectangle {
+//                    border.color: 'white'
+//                    color: 'transparent'
+//                    anchors.fill: parent
+//                    radius: parent.width / 2
+//                }
+                ItemRadiusMask {
+                    id: mask
+                    anchors.fill: parent
+                    radius: parent.width / 2
+                }
+                onPressedChanged: {
+                    if (pressed) {
+                        resizeCenter.x = parent.x + parent.width/2
+                        resizeCenter.y = parent.y + parent.height/2
+                        var x = width/2 - mouseX
+                        var y = height/2 - mouseY
+                        var resizeRadius = Math.sqrt(x*x+y*y)
+                        resizeRadiusRatio = parent.radius / resizeRadius
+                    }
+                }
+                onPositionChanged: {
+                    if (pressed) {
+                        var mouseGlobalX = mouse.x + x + parent.x
+                        var mouseGlobalY = mouse.y + y + parent.y
+                        var mouseCenterDX = mouseGlobalX - resizeCenter.x
+                        var mouseCenterDY = mouseGlobalY - resizeCenter.y
+                        var mouseCenterDist = Math.sqrt(mouseCenterDX * mouseCenterDX + mouseCenterDY * mouseCenterDY)
+                        var newRadius = mouseCenterDist * resizeRadiusRatio
+                        parent.radius = newRadius
+                        parent.x = resizeCenter.x - newRadius
+                        parent.y = resizeCenter.y - newRadius
+                        parent.width = newRadius * 2
+                        parent.height = newRadius * 2
+                    }
+                }
             }
-            ItemRadiusMask {
-                id: mask
+            MouseArea {
+                containmentMask: innerMask
                 anchors.fill: parent
-                radius: parent.radius
+                anchors.margins: parent.width / 6
+                drag.target: parent
+                drag.threshold: 1
+                //FIXME: let events fall through
+                onDoubleClicked: parent.destroy()
+                onClicked: currentSpotlight = parent
+                onWheel: { parent.z += wheel.pixelDelta.y; currentSpotlight = parent }
+                ItemRadiusMask {
+                    id: innerMask
+                    anchors.fill: parent
+                    radius: parent.width / 2
+                }
+//                // Visualize outline of area
+//                Rectangle {
+//                    border.color: 'black'
+//                    color: 'transparent'
+//                    anchors.fill: parent
+//                    radius: parent.width / 2
+//                }
             }
         }
     }
