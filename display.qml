@@ -74,43 +74,51 @@ ApplicationWindow {
     Slider {
         id: greenSlider
         visible: true
-        x: edgewidth
+        x: 0
         y: 0
-        width: parent.width - edgewidth * 2
+        width: parent.width
         height: edgewidth
         onValueChanged: { currentSpotlight.color.g = value }
+        background: Rectangle { visible:false }
+        handle: Rectangle { visible:false }
     }
 
     Slider {
         id: alphaSlider
         visible: true
-        x: edgewidth
+        x: 0
         y: parent.height - edgewidth
-        width: parent.width - edgewidth * 2
+        width: parent.width
         height: edgewidth
         onValueChanged: { currentSpotlight.color.a = value }
+        background: Rectangle { visible:false }
+        handle: Rectangle { visible:false }
     }
 
     Slider {
         id: redSlider
         visible: true
         x: 0
-        y: edgewidth
+        y: 0
         width: edgewidth
-        height: parent.height - edgewidth * 2
+        height: parent.height
         orientation: Qt.Vertical
         onValueChanged: { currentSpotlight.color.r = value }
+        background: Rectangle { visible:false }
+        handle: Rectangle { visible:false }
     }
 
     Slider {
         id: blueSlider
         visible: true
         x: parent.width - edgewidth
-        y: edgewidth
+        y: 0
         width: edgewidth
-        height: parent.height - edgewidth * 2
+        height: parent.height
         orientation: Qt.Vertical
         onValueChanged: { currentSpotlight.color.b = value }
+        background: Rectangle { visible:false }
+        handle: Rectangle { visible:false }
     }
 
 }
