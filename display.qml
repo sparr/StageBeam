@@ -21,15 +21,24 @@ ApplicationWindow {
         MouseArea {
             visible: true
             anchors.fill: parent
+            property point pressStarted
+            onPressedChanged: {
+                if (pressed)
+                {
+                    pressStarted.x = mouseX
+                    pressStarted.y = mouseY
+                }
+            }
             onClicked: {
-                currentSpotlight = spotlightComponent.createObject(containerInner, {
-                    "x": x + mouseX - spotlightRadius,
-                    "y": y + mouseY - spotlightRadius,
-                    "width": spotlightRadius * 2,
-                    "height": spotlightRadius * 2,
-                    "radius": spotlightRadius,
-                    "color": Qt.rgba(Math.random()*0.5+0.5,Math.random()*0.5+0.5,Math.random()*0.5+0.5,0.5),
-                })
+                if (pressStarted.x == mouseX && pressStarted.y == mouseY)
+                    currentSpotlight = spotlightComponent.createObject(containerInner, {
+                        "x": x + mouseX - (currentSpotlight ? currentSpotlight.radius : spotlightRadius),
+                        "y": y + mouseY - (currentSpotlight ? currentSpotlight.radius : spotlightRadius),
+                        "width": currentSpotlight ? currentSpotlight.width : spotlightRadius * 2,
+                        "height": currentSpotlight ? currentSpotlight.height : spotlightRadius * 2,
+                        "radius": currentSpotlight ? currentSpotlight.radius : spotlightRadius,
+                        "color": currentSpotlight ? currentSpotlight.color : 'white',
+                    })
             }
         }
         Item {
