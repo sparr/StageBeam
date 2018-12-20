@@ -120,10 +120,12 @@ ApplicationWindow {
     }
 
     onCurrentSpotlightChanged: {
-        redSlider.dynamicValue = currentSpotlight.color.r
-        greenSlider.dynamicValue = currentSpotlight.color.g
-        blueSlider.dynamicValue = currentSpotlight.color.b
-        alphaSlider.dynamicValue = currentSpotlight.color.a
+        if (currentSpotlight) {
+            redSlider.dynamicValue = currentSpotlight.color.r
+            greenSlider.dynamicValue = currentSpotlight.color.g
+            blueSlider.dynamicValue = currentSpotlight.color.b
+            alphaSlider.dynamicValue = currentSpotlight.color.a
+        }
     }
 
 
