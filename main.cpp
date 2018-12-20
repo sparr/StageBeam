@@ -20,7 +20,8 @@ int main(int argc, char *argv[])
         return -1;
 
     app.allWindows()[0]->showFullScreen();
-    NSRunningApplication_setPresentationOptions(10);
+    NSApp_setPresentationOptions_hideMenuDock();
+    NSProcessInfo_beginActivity_disableSleep();
 
     return app.exec();
 }

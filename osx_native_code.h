@@ -5,7 +5,8 @@
 extern "C" {
 #endif
 
-void NSRunningApplication_setPresentationOptions(unsigned int options);
+void NSApp_setPresentationOptions_hideMenuDock();
+void NSProcessInfo_beginActivity_disableSleep();
 
 #ifdef __cplusplus
 }

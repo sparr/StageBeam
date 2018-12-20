@@ -2,6 +2,15 @@
 
 #include "osx_native_code.h"
 
-void NSRunningApplication_setPresentationOptions(unsigned int options) {
-    NSApp.presentationOptions = options;
+void NSApp_setPresentationOptions_hideMenuDock() {
+    NSApp.presentationOptions = NSApplicationPresentationHideDock |  NSApplicationPresentationHideMenuBar;
+}
+
+void NSProcessInfo_beginActivity_disableSleep() {
+    [[NSProcessInfo processInfo]
+        beginActivityWithOptions:
+            NSActivityUserInitiated |
+            NSActivityIdleDisplaySleepDisabled |
+            NSActivityIdleSystemSleepDisabled
+        reason: @"StageBeam Display in use"];
 }
