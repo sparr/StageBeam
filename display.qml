@@ -11,8 +11,8 @@ ApplicationWindow {
     color: 'black'
     title: qsTr("Display")
 
-    property real edgewidth: Math.min(width, height) * 0.15
-    property real spotlightRadius: edgewidth * 1.5
+    property real edgewidth: Math.min(width, height) * 0.1
+    property real spotlightRadius: edgewidth * 3
     property Item currentSpotlight
 
     Item {
