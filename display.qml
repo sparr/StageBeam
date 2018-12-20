@@ -7,6 +7,7 @@ ApplicationWindow {
     visible: true
     width: 640
     height: 480
+//    visibility: "FullScreen"
     color: 'black'
     title: qsTr("Display")
 
